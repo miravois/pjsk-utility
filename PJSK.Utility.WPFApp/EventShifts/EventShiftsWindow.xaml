@@ -1,0 +1,246 @@
+﻿<Window x:Class="PJSK.Utility.WPFApp.EventShifts.EventShiftsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:common="clr-namespace:PJSK.Utility.WPFApp"
+        xmlns:local="clr-namespace:PJSK.Utility.WPFApp.EventShifts"
+        xmlns:uc="clr-namespace:PJSK.Utility.WPFApp.Controls"
+        xmlns:uces="clr-namespace:PJSK.Utility.WPFApp.EventShifts.Controls"
+        mc:Ignorable="d"
+        Title="Event Shifts" FontSize="15" MinHeight="720" MinWidth="1024" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <common:HexToSolidColorBrushConverter x:Key="ColorConverter" />
+        <common:BooleanToVisibilityConverter x:Key="VisibilityConverter" />
+    </Window.Resources>
+    
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <ComboBox Grid.Column="0" Grid.Row="0" Margin="0,0,5,0"
+                  ItemsSource="{Binding AllEvents}" DisplayMemberPath="EventIdName" SelectedValuePath="EventId"
+                  SelectionChanged="ddlEvents_SelectionChanged" />
+
+        <Grid Grid.Column="1" Grid.Row="0" Margin="5,0,0,0" HorizontalAlignment="Stretch">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Button Grid.Column="0" Grid.Row="0" Width="45"
+                    Content="EDIT" Click="btnEditEvent_Click" IsEnabled="{Binding IsCurrentEventLoaded}" />
+            
+            <Label Grid.Column="1" Grid.Row="0" Padding="5,3"
+                   Content="{Binding CurrentEvent.EventDuration_Local}"
+                   Visibility="{Binding IsCurrentEventLoaded, Converter={StaticResource VisibilityConverter}}" />
+
+            <Label Grid.Column="2" Grid.Row="0" Padding="5,3" HorizontalAlignment="Center"
+                   Content="{Binding EventCountdown}"
+                   Visibility="{Binding IsCurrentEventLoaded, Converter={StaticResource VisibilityConverter}}"/>
+            
+            <Button Grid.Column="3" Grid.Row="0" 
+                    Content="ADD" Click="btnAddEvent_Click" />
+        </Grid>
+
+        <Grid Grid.Column="0" Grid.Row="1" Margin="0,10,5,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <TextBox Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Height="100" Margin="0,0,0,10"
+                     Text="{Binding ToBeParsedText}" IsEnabled="{Binding IsCurrentEventLoaded}"
+                     AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Visible" />
+
+            <Button Grid.Column="0" Grid.Row="1" Width="Auto" Height="Auto" Margin="0,0,10,0"
+                    Content="ADD PLAYER" Click="btnAddPlayer_Click" IsEnabled="{Binding IsCurrentEventLoaded}" />
+            
+            <Button Grid.Column="1" Grid.Row="1" Width="Auto" Height="Auto" Margin="10,0,0,0"
+                    Content="PARSE DATA" Click="btnParseData_Click" IsEnabled="{Binding IsCurrentEventLoaded}" />
+
+            <Button Grid.Column="2" Grid.Row="1" Width="Auto" Height="Auto" Margin="10,0,0,0"
+                    Content="CLEAR" Click="btnClearParseData_Click" IsEnabled="{Binding IsCurrentEventLoaded}" />
+
+            <Grid  Margin="0,10,0,0" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <xctk:WatermarkTextBox Grid.Column="0" Grid.Row="0" Margin="0,0,5,10"
+                                       Text="{Binding ToBeSearchedPlayerName}" IsEnabled="{Binding IsCurrentEventLoaded}"
+                                       TextChanged="txtSearchPlayerName_TextChanged" Watermark="Type to Search Name"  />
+
+                <Button Grid.Column="1" Grid.Row="0" Margin="5,0,0,10"
+                        Content="CLEAR" Click="btnClearSearchPlayerName_Click" IsEnabled="{Binding IsCurrentEventLoaded}" />
+
+                <DataGrid Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"
+                          CanUserAddRows="False" AutoGenerateColumns="False"
+                          ItemsSource="{Binding AllPlayers}"
+                          Visibility="{Binding IsCurrentEventLoaded, Converter={StaticResource VisibilityConverter}}">
+                    <DataGrid.Resources>
+                        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#0077DD" />
+                        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />
+                        
+                        <Style TargetType="DataGridRow">
+                            <EventSetter Event="MouseDoubleClick" Handler="dgPlayers_DataGridRow_MouseDoubleClick" />
+                            <EventSetter Event="MouseRightButtonDown" Handler="dgPlayers_DataGridRow_MouseRightButtonDown" />
+                        </Style>
+                    </DataGrid.Resources>
+                    <DataGrid.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="Background" Value="{Binding BgColorHex, Converter={StaticResource ColorConverter}}" />
+                            
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsRunner}" Value="True">
+                                    <!--<Setter Property="Foreground" Value="#FF7722" />-->
+                                    <Setter Property="FontWeight" Value="Bold" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.CellStyle>
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID" Binding="{Binding PlayerId}" IsReadOnly="True" Width="30">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Left" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="Name" Binding="{Binding PlayerName}" IsReadOnly="True" />
+                        <DataGridTextColumn Header="Leader" Binding="{Binding PlayerLeaderSkill}" IsReadOnly="True" />
+                        <DataGridTextColumn Header="Internal" Binding="{Binding PlayerInternalValue}" IsReadOnly="True" />
+                        <DataGridTextColumn Header="Power" Binding="{Binding PlayerTotalPower}" IsReadOnly="True" />
+                        <DataGridTextColumn Header="Leader" Binding="{Binding EncorePlayerLeaderSkill}" IsReadOnly="True" />
+                        <DataGridTextColumn Header="Internal" Binding="{Binding EncorePlayerInternalValue}" IsReadOnly="True" />
+                        <DataGridTextColumn Header="Power" Binding="{Binding EncorePlayerTotalPower}" IsReadOnly="True" />
+                        <DataGridTextColumn Header="NG" Binding="{Binding NgPlayerIdData}" IsReadOnly="True" />
+                        <DataGridTextColumn Header="OtherName" Binding="{Binding PlayerOtherName}" IsReadOnly="True" />
+
+                        <!--<DataGridTemplateColumn>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button FontWeight="Normal" Content="DELETE" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>-->
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </Grid>
+
+        <Grid Grid.Column="1" Grid.Row="1" Margin="5,10,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Column="0" Grid.Row="0" Margin="0,0,0,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Button Grid.Column="0" Grid.Row="0" Width="45" Margin="0,0,5,0"
+                             IsEnabled="{Binding IsCurrentEventLoaded}"
+                            Content="AUTO" Click="btnGenerateShiftTable_Click" />
+
+                    <xctk:DateTimePicker Grid.Column="1" Grid.Row="0"
+                                         IsEnabled="{Binding IsCurrentEventLoaded}"
+                                         Value="{Binding ShiftDate}" ValueChanged="dtShiftDate_ValueChanged"
+                                         Format="Custom" FormatString="dddd, yyyy-MM-dd" TimePickerVisibility="Collapsed" AutoCloseCalendar="True" />
+
+                    <xctk:IntegerUpDown Grid.Column="2" Grid.Row="0" Margin="10,0,10,0"
+                                        IsEnabled="{Binding IsCurrentEventLoaded}"
+                                        Value="{Binding ShiftTimeStartHour}" ValueChanged="upShiftTimeStartHour_ValueChanged"
+                                        Increment="6" Minimum="0" Maximum="18" />
+                </Grid>
+
+                <Grid Grid.Column="2" Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <CheckBox Grid.Column="0" Grid.Row="0" Width="Auto" Margin="0,5,5,0" VerticalContentAlignment="Center"
+                              Content="ALL" IsChecked="{Binding IsViewOrExportAllShifts}" />
+
+                    <!--<Button Grid.Column="0" Grid.Row="0" Width="Auto" Margin="5,0,5,0"
+                        Content="ALL" Click="btnViewShiftTable_Click" Tag="ALL" IsEnabled="{Binding IsCurrentEventLoaded}" />-->
+
+                    <Button Grid.Column="1" Grid.Row="0" Width="Auto" Margin="0,0,0,0"
+                        Content="VIEW" Click="btnViewShiftTable_Click" IsEnabled="{Binding IsCurrentEventLoaded}" />
+
+                    <Button Grid.Column="2" Grid.Row="0" Width="Auto" Margin="5,0,0,0"
+                        Content="EXPORT" Click="btnExportShiftTable_Click" IsEnabled="{Binding IsCurrentEventLoaded}" />
+                </Grid>
+                
+            </Grid>
+
+            <ScrollViewer Grid.Column="0" Grid.Row="1" Name="svShiftTable">
+                <ItemsControl Name="icShiftTable" ItemsSource="{Binding ShiftTableRows}"
+                              Visibility="{Binding IsCurrentEventLoaded, Converter={StaticResource VisibilityConverter}}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Columns="1" Rows="24"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <uces:ShiftTableDetailRow CurrentShiftTableRow="{Binding Path=.}" ViewShiftTimeWindowClick="ShiftTableDetailRow_ViewShiftTimeWindowClick" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+            
+        </Grid>
+
+        <uc:LoadingPanel Grid.ColumnSpan="2" Grid.RowSpan="2" 
+                         x:Name="ucLoadingPanel" Visibility="Collapsed" />
+    </Grid>
+</Window>

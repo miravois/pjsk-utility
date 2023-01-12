@@ -1,0 +1,16 @@
+﻿<UserControl x:Class="PJSK.Utility.WPFApp.Controls.LoadingPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:fa="http://schemas.fontawesome.io/icons/"
+             xmlns:local="clr-namespace:PJSK.Utility.WPFApp.Controls"
+             mc:Ignorable="d">
+    <Grid Panel.ZIndex="1000">
+        <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="White" Opacity=".7" />
+        <StackPanel Height="Auto" Orientation="Horizontal" HorizontalAlignment="Center" Grid.Column="0" Grid.Row="0">
+            <fa:ImageAwesome Icon="CircleOutlineNotch" Spin="True" Height="48" Width="48"></fa:ImageAwesome>
+            <Label FontSize="40" Margin="5" VerticalAlignment="Center">Loading...</Label>
+        </StackPanel>
+    </Grid>
+</UserControl>

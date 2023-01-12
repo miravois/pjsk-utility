@@ -1,0 +1,207 @@
+﻿<Window x:Class="PJSK.Utility.WPFApp.EventShifts.AddEditShiftWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:common="clr-namespace:PJSK.Utility.WPFApp"
+        xmlns:local="clr-namespace:PJSK.Utility.WPFApp.EventShifts"
+        xmlns:uc="clr-namespace:PJSK.Utility.WPFApp.Controls"
+        mc:Ignorable="d"
+        FontSize="15" SizeToContent="WidthAndHeight" ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
+    <Window.Resources>
+        <local:AddEditShiftModelBindingProxy x:Key="proxy" ViewModel="{Binding}" />
+    </Window.Resources>
+    <Grid Margin="10">
+        <Grid.Resources>
+            <Style TargetType="Label">
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="HorizontalAlignment" Value="Right" />
+            </Style>
+            <Style TargetType="TextBlock">
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+            <Style TargetType="TextBox">
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+            </Style>
+            <Style TargetType="xctk:DateTimePicker">
+                <Setter Property="Format" Value="Custom" />
+                <Setter Property="FormatString" Value="dddd, yyyy-MM-dd" />
+                <Setter Property="TimePickerVisibility" Value="Collapsed" />
+                <Setter Property="AutoCloseCalendar" Value="True" />
+                <Setter Property="TextAlignment" Value="Left" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+            </Style>
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Label Grid.Column="0" Grid.Row="0"
+               Content="Player Name:" />
+        <TextBlock Grid.Column="1" Grid.Row="0" 
+                   Text="{Binding CurrentPlayer.PlayerName}" />
+
+        <Label Grid.Column="0" Grid.Row="1"
+               Content="Player Data:" />
+        <TextBlock Grid.Column="1" Grid.Row="1" 
+                 Text="{Binding CurrentPlayer.PlayerData}" />
+
+        <Label Grid.Column="0" Grid.Row="2"
+               Content="Player Encore Data:" />
+        <TextBlock Grid.Column="1" Grid.Row="2" 
+                 Text="{Binding CurrentPlayer.EncorePlayerData}" />
+
+        <Label Grid.Column="0" Grid.Row="3"
+               Content="Start Date (JP):" />
+        <TextBlock Grid.Column="1" Grid.Row="3" 
+                 Text="{Binding CurrentEvent.EventStartDate_JapanString}" />
+
+        <Label Grid.Column="0" Grid.Row="4"
+               Content="End Date (JP):" />
+        <TextBlock Grid.Column="1" Grid.Row="4" 
+                 Text="{Binding CurrentEvent.EventEndDate_JapanString}" />
+
+        <Label Grid.Column="0" Grid.Row="5"
+               Content="Shift Date (JP):" />
+        <xctk:DateTimePicker Grid.Column="1" Grid.Row="5" 
+                             Value="{Binding ShiftDate}"
+                             ValueChanged="dtpShiftDate_ValueChanged" />
+
+        <Border Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" BorderThickness="1" Margin="5,15,5,10" Padding="10">
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                    <GradientStop Color="#FF7722" Offset="0.0" />
+                    <GradientStop Color="#0077DD" Offset="1" />
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+            <Grid>
+                <Grid.Resources>
+                    <Style TargetType="Label">
+                        <Setter Property="VerticalAlignment" Value="Center" />
+                        <Setter Property="HorizontalAlignment" Value="Right" />
+                    </Style>
+                    <Style TargetType="TextBox">
+                        <Setter Property="VerticalAlignment" Value="Center" />
+                        <Setter Property="VerticalContentAlignment" Value="Center" />
+                    </Style>
+                    <Style TargetType="CheckBox">
+                        <Setter Property="VerticalAlignment" Value="Center" />
+                    </Style>
+                </Grid.Resources>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <CheckBox Grid.Column="0" Grid.Row="0" 
+                          IsChecked="{Binding CurrentShift.CanEncore}">
+                    <TextBlock Margin="0,-3,0,0">Can Encore</TextBlock>
+                </CheckBox>
+
+                <CheckBox Grid.Column="1" Grid.Row="0" 
+                          IsChecked="{Binding CurrentShift.CanStandby}">
+                    <TextBlock Margin="0,-3,0,0">Can Standby</TextBlock>
+                </CheckBox>
+
+                <TextBox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Height="100" Margin="0,10" VerticalContentAlignment="Top" 
+                         Text="{Binding CurrentShift.Notes}" 
+                         TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Visible" />
+
+                <ListBox Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Width="Auto" Height="150" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                         ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                         ItemsSource="{Binding ShiftDataList}" DisplayMemberPath="ShiftTime" SelectionMode="Multiple"
+                         common:MultiSelectorBehaviours.SynchronizedSelectedItems="{Binding SelectedShiftDataList}"
+                         IsEnabled="{Binding CanSave}">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Vertical"  />
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListBoxItem}">
+                            <Setter Property="Margin" Value="10,0" />
+                            <Setter Property="IsSelected" Value="{Binding IsActive}"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="FontWeight" Value="Bold" />
+                                    <Setter Property="Foreground" Value="#FF7722" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                </ListBox>
+
+                <ScrollViewer Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="4" Height="100" VerticalScrollBarVisibility="Visible">
+                    <ItemsControl VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                          ScrollViewer.VerticalScrollBarVisibility="Visible"
+                          ItemsSource="{Binding SelectedShiftDataList}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <WrapPanel>
+                                    <Label Margin="0,0,10,0" FontWeight="Bold" Foreground="#0077DD"
+                                           Content="{Binding ShiftTime}" />
+                                    <CheckBox VerticalContentAlignment="Center" 
+                                              Content="Encore?" IsChecked="{Binding IsEncore}" />
+                                    <Label Margin="10,0,0,0"
+                                           Content="Position:" />
+                                    <xctk:IntegerUpDown Value="{Binding Position}" Increment="1" Minimum="-1" Maximum="5" />
+                                </WrapPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+
+                <Grid Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Column="0" Grid.Row="0" Content="Today Count:" />
+                    <Label Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center"
+                           Content="{Binding TodayActualShiftCount}" />
+
+                    <Label Grid.Column="2" Grid.Row="0" Content="Total Count:" />
+                    <Label Grid.Column="3" Grid.Row="0" HorizontalAlignment="Center"
+                           Content="{Binding TotalActualShiftCount}" />
+                </Grid>
+
+                <Button Grid.Column="0" Grid.Row="5" Width="120" Margin="0,10,0,0"
+                        Content="SAVE" IsEnabled="{Binding CanSave}"
+                        Click="btnSave_Click" Tag="Save" />
+                <Button Grid.Column="1" Grid.Row="5" Width="120" Margin="0,10,0,0"
+                        Content="SAVE &amp; CLOSE" IsEnabled="{Binding CanSave}"
+                        Click="btnSave_Click" Tag="SaveAndClose" />
+            </Grid>
+        </Border>
+
+        <uc:LoadingPanel Grid.ColumnSpan="4" Grid.RowSpan="7"
+                         x:Name="ucLoadingPanel" Visibility="Collapsed"></uc:LoadingPanel>
+    </Grid>
+</Window>

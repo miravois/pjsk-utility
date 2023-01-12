@@ -1,0 +1,25 @@
+﻿<Window x:Class="PJSK.Utility.WPFApp.EventShifts.ViewShiftTableWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:uces="clr-namespace:PJSK.Utility.WPFApp.EventShifts.Controls"
+        xmlns:local="clr-namespace:PJSK.Utility.WPFApp.EventShifts"
+        mc:Ignorable="d"
+        Title="ViewShiftTableWindow" SizeToContent="WidthAndHeight" ResizeMode="CanMinimize" WindowStartupLocation="CenterOwner" FontSize="15">
+    <StackPanel MinWidth="900">
+        <TextBlock Margin="5" Name="txtShiftDate" />
+        <ItemsControl ItemsSource="{Binding}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Columns="1"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <uces:ShiftTableSummaryRow CurrentShiftTableRow="{Binding Path=.}" />
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </StackPanel>
+</Window>

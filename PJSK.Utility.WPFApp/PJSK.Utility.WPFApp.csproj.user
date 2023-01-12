@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_LastSelectedProfileId>Z:\My Drive\Development\PJSK.Utility\PJSK.Utility.WPFApp\Properties\PublishProfiles\FolderProfile.pubxml</_LastSelectedProfileId>
+  </PropertyGroup>
+  <ItemGroup>
+    <ApplicationDefinition Update="App.xaml">
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Controls\LoadingPanel.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="EventShifts\AddEditPlayerWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="EventShifts\AddEditShiftWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="EventShifts\Controls\ShiftTableDetailRow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="EventShifts\EventShiftsWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="EventShifts\AddEditEventWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="EventShifts\ViewShiftTableWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="EventShifts\ViewShiftTimeWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Controls\LoadingPanel.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="EventShifts\AddEditPlayerWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="EventShifts\AddEditShiftWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="EventShifts\Controls\ShiftTableDetailRowAll.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="EventShifts\Controls\ShiftTableSummaryRow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="EventShifts\Controls\ShiftTableDetailRow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="EventShifts\EventShiftsWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="EventShifts\ViewShiftTableDetailWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="EventShifts\ViewShiftTableWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="EventShifts\ViewShiftTimeWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="EventShifts\AddEditEventWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+</Project>

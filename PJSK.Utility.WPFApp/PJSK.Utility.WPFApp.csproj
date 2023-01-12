@@ -1,0 +1,76 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows10.0.20348.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <SupportedOSPlatformVersion>10.0.20348.0</SupportedOSPlatformVersion>
+    <PackageIcon>icons8-winter-96.png</PackageIcon>
+    <ApplicationIcon>icons8-winter-96.ico</ApplicationIcon>
+    <FileVersion>1.1.4.0</FileVersion>
+	<IsTransformWebConfigDisabled>true</IsTransformWebConfigDisabled>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="EventShifts\cs" />
+    <Compile Remove="ViewShiftTimeModel.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="icons8-winter-96.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\icons\icons8-winter-96.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.3.0" />
+    <PackageReference Include="FontAwesome.WPF" Version="4.7.0.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PJSK.Utility.Common\PJSK.Utility.Common.csproj" />
+    <ProjectReference Include="..\PJSK.Utility.Data\PJSK.Utility.Data.csproj" />
+    <ProjectReference Include="..\PJSK.Utility.EventShifts\PJSK.Utility.EventShifts.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="EventShifts\Controls\ShiftTableDetailRowAll.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="EventShifts\Controls\ShiftTableSummaryRow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="EventShifts\ViewShiftTableDetailWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="NLog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="EventShifts\Controls\ShiftTableDetailRowAll.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="EventShifts\Controls\ShiftTableSummaryRow.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="EventShifts\ViewShiftTableDetailWindow.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Models\Shift.cs~RF271257ca.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PJSK.Utility.Common\PJSK.Utility.Common.csproj" />
+    <ProjectReference Include="..\PJSK.Utility.Data\PJSK.Utility.Data.csproj" />
+  </ItemGroup>
+
+</Project>

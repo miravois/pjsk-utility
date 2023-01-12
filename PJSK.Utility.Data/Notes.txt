@@ -1,0 +1,7 @@
+﻿1. Set Startup Project as PJSK.Utility.Data
+
+2. Run the following (this will replace all existing classes generated):
+Scaffold-DbContext "DataSource=Z:\My Drive\Development\PJSK.Utility\PJSK.Utility.Data\SQLite Data Files\EventShifts.db "Microsoft.EntityFrameworkCore.Sqlite -Project "PJSK.Utility.Data" -OutputDir "EventShifts\DAL" -force
+
+3. in Context file, OnConfiguring(), replace with the following to read from config:
+optionsBuilder.UseSqlite(System.Configuration.ConfigurationManager.ConnectionStrings["EventShiftsDatabase"].ConnectionString);

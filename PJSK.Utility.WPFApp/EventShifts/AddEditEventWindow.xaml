@@ -1,0 +1,82 @@
+﻿<Window x:Class="PJSK.Utility.WPFApp.EventShifts.AddEditEventWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:common="clr-namespace:PJSK.Utility.WPFApp"
+        xmlns:local="clr-namespace:PJSK.Utility.WPFApp.EventShifts"
+        xmlns:uc="clr-namespace:PJSK.Utility.WPFApp.Controls"
+        mc:Ignorable="d"
+        FontSize="15" SizeToContent="WidthAndHeight" ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
+    <Window.Resources>
+        <common:LongToStringConverter x:Key="LongConverter" />
+    </Window.Resources>
+    
+    <Grid Margin="10">
+        <Grid.Resources>
+            <Style TargetType="Label">
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="HorizontalAlignment" Value="Right" />
+            </Style>
+            <Style TargetType="TextBox">
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+            </Style>
+            <Style TargetType="xctk:DateTimePicker">
+                <Setter Property="Format" Value="Custom" />
+                <Setter Property="FormatString" Value="yyyy-MM-dd HH:mm:ss" />
+                <Setter Property="AllowSpin" Value="False" />
+                <Setter Property="TextAlignment" Value="Left" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+            </Style>
+            <Style TargetType="Button">
+                <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+                <Setter Property="Width" Value="100"></Setter>
+                <Setter Property="Margin" Value="0,10,0,0"></Setter>
+            </Style>
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="200"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Column="0" Grid.Row="0"
+               Content="Event Name:" />
+        <TextBox Grid.Column="1" Grid.Row="0"
+                 Text="{Binding EventName}" />
+
+        <Label Grid.Column="0" Grid.Row="1"
+               Content="Event Type:" />
+        <ComboBox Grid.Column="1" Grid.Row="1" Height="Auto" VerticalAlignment="Center"
+                  SelectedValue="{Binding EventType, Converter={StaticResource LongConverter}}" SelectedValuePath="Tag">
+            <ComboBoxItem Content="" Tag="0" />
+            <ComboBoxItem Content="Cheerful Carnival" Tag="1" />
+            <ComboBoxItem Content="Solitary Envy" Tag="2" />
+        </ComboBox>
+
+        <Label Grid.Column="0" Grid.Row="2"
+               Content="Start Date (JP):" />
+        <xctk:DateTimePicker Grid.Column="1" Grid.Row="2" 
+                             Value="{Binding EventStartDate_JapanDateTime}" />
+
+        <Label Grid.Column="0" Grid.Row="3"
+               Content="End Date (JP):" />
+        <xctk:DateTimePicker Grid.Column="1" Grid.Row="3" 
+                             Value="{Binding EventEndDate_JapanDateTime}" />
+
+        <Button Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2"
+                Content="SAVE" Click="btnSave_Click" />
+
+        <uc:LoadingPanel Grid.ColumnSpan="2" Grid.RowSpan="5" 
+                         x:Name="ucLoadingPanel" Visibility="Collapsed" />
+    </Grid>
+</Window>
