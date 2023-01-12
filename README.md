@@ -1,4 +1,4 @@
-# pjsk-utility (Evenet Shifts Planner)
+# pjsk-utility (Event Shifts Planner)
 
 ## Main View
 ![Screenshot 2022-08-14 065034](https://user-images.githubusercontent.com/5847207/211958092-29b1c7ff-258e-4357-9839-3987a6c2ef67.png)
